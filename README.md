@@ -1,4 +1,4 @@
-Ok, đây là nguyên **code của file `README.md`** anh có thể copy-paste thẳng vào GitHub repo:
+
 
 ```markdown
 # Minecraft Server Manager – GUI, CLI & Remote API
@@ -126,3 +126,130 @@ MIT License – Tự do sử dụng và tùy chỉnh.
 Nếu anh muốn repo **nổi bật hơn trên GitHub**, em có thể thêm **ảnh banner + badges (build, license, platform)** vào phần đầu README để nhìn chuyên nghiệp hơn.  
 Anh có muốn em làm luôn phần đó không?
 ```
+
+
+
+# Minecraft Server Manager – GUI, CLI & Remote API
+
+## 📌 Introduction / Giới thiệu
+
+**Minecraft Server Manager (QSMM)** is a cross-platform, multi-functional application for managing Minecraft servers. It supports:
+**Minecraft Server Manager (QSMM)** là ứng dụng đa nền tảng và đa chức năng để quản lý Minecraft Server, hỗ trợ:
+
+* Local and remote management via API / Quản lý cục bộ và từ xa qua API.
+* Run multiple servers simultaneously / Chạy nhiều server song song.
+* Modern Qt GUI / Giao diện Qt hiện đại.
+* Powerful CLI for server and client / CLI mạnh mẽ cho server và client.
+* Automatic Minecraft version, mods, and plugins installation / Tự động tải và cài đặt phiên bản Minecraft, mods và plugins.
+* Real-time CPU/RAM monitoring / Theo dõi CPU/RAM theo thời gian thực.
+
+---
+
+## 🚀 Key Features / Tính năng chính
+
+* Multi-instance management / Quản lý nhiều instance.
+* Edit `server.properties` via UI or CLI / Chỉnh sửa `server.properties` qua UI hoặc CLI.
+* Version management: Vanilla, Paper, Purpur, Fabric, Forge…
+* Mod/Plugin install from Modrinth and Spiget / Cài đặt Mods/Plugins từ Modrinth và Spiget.
+* CPU%, RAM usage tracking / Theo dõi hiệu năng CPU%, RAM.
+* REST API for remote management / API REST để quản lý từ xa.
+* Security with Bearer Token + HTTPS support / Bảo mật với Bearer Token + hỗ trợ HTTPS.
+* Supports Linux, Windows, macOS.
+
+---
+
+## 🏗 Architecture / Kiến trúc hệ thống
+
+```
++------------------+          +----------------------+
+|  Client GUI (Qt) | <------> |  Server CLI (Agent)  |
++------------------+    API   +----------------------+
+|  Client CLI      | <------> |  REST API + Core     |
++------------------+          |  Manage Instances   |
+                               |  Mods / Plugins     |
+                               |  Versions Control   |
+                               |  Metrics Monitor    |
+                               +----------------------+
+```
+
+---
+
+## 📡 Main API / API chính
+
+* `GET  /api/v1/instances` – List all servers / Liệt kê tất cả server.
+* `POST /api/v1/instances/:id/start` – Start server / Khởi động server.
+* `POST /api/v1/instances/:id/stop` – Stop server / Dừng server.
+* `POST /api/v1/instances/:id/command` – Send console command / Gửi lệnh vào console.
+* `GET  /api/v1/instances/:id/props` – Get configuration / Lấy cấu hình.
+* `POST /api/v1/instances/:id/props` – Update configuration / Chỉnh cấu hình.
+* `GET  /api/v1/instances/:id/metrics` – CPU/RAM usage / Thông tin CPU/RAM.
+* `POST /api/v1/instances/:id/modrinth/install` – Install mod / Cài mod.
+* `POST /api/v1/instances/:id/spiget/install` – Install plugin / Cài plugin.
+
+---
+
+## 📦 Installation / Cài đặt
+
+### Requirements / Yêu cầu
+
+* C++17+
+* Qt 6.x
+* `nlohmann/json` (header-only)
+* `cpp-httplib` (header-only)
+* JDK 17+
+
+### Build / Biên dịch
+
+```bash
+git clone https://github.com/<yourname>/qsmm.git
+cd qsmm
+mkdir build && cd build
+cmake ..
+make
+```
+
+---
+
+## ⚡ Run / Chạy ứng dụng
+
+### 1. Run server CLI (agent) / Chạy server CLI (agent)
+
+```bash
+./qsmm-agent
+# First run prints token / Lần đầu chạy sẽ in token
+```
+
+### 2. Connect from client / Kết nối từ client
+
+* **GUI**: Enter IP + token / Nhập IP + token.
+* **CLI**:
+
+```bash
+qsmm-cli --host http://<IP>:8787 --token <TOKEN> list
+```
+
+---
+
+## 🔐 Security / Bảo mật
+
+* All API requests require Bearer Token / Mọi API yêu cầu Bearer Token.
+* IP restriction or HTTPS via reverse proxy / Giới hạn IP hoặc chạy sau reverse proxy với HTTPS.
+* Role-based access (read-only/admin) / Phân quyền (read-only/admin).
+
+---
+
+## 🗺 Roadmap / Lộ trình
+
+* [ ] Multi-instance support / Hỗ trợ đa instance.
+* [ ] Edit `server.properties` via UI / Chỉnh sửa `server.properties` qua UI.
+* [ ] Mod/plugin install from Modrinth & Spiget / Cài mod/plugin từ Modrinth & Spiget.
+* [ ] Version management (Vanilla, Paper, Purpur, Fabric…) / Quản lý phiên bản.
+* [ ] CPU/RAM metrics / Thống kê CPU/RAM.
+* [ ] CLI server/client.
+* [ ] Windows/macOS support.
+
+---
+
+## 📜 License / Giấy phép
+
+MIT License – Free to use and modify / Tự do sử dụng và chỉnh sửa.
